@@ -43,3 +43,12 @@
 -posts: массив post: id / title / imageUrl / publishedAt / commentsCount
 -post: id / title /imageUrl / content / publishedAt / comments: массив comment: id / author / content / publishedAt
 -users: массив user: id / login / registeredAt / role
+
+---
+
+урок 5
+посмотрели наброски в photopea и зашли на сайт рыбаТекст познакомились с приложением генератор текста , прикинули как будет выглядить сайт
+
+---
+
+урок 6
