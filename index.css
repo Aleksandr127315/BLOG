@@ -24,6 +24,11 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+a {
+	color: #000;
+	text-decoration: none;
+}
+
 :root {
 	--accent-color-hue: 236;
 	--accent-color-saturation: 100%;
