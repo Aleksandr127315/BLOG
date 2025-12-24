@@ -1,4 +1,4 @@
-import { getUsers } from './get-users';
+import { getUsers } from '../bff/index';
 
 export const getUser = async (loginToFind) => {
 	const users = await getUsers();

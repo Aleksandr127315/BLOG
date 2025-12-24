@@ -1,6 +1,4 @@
-import { getUser } from './get-user';
-import { addUser } from './add-user';
-import { createSession } from './create-session';
+import { getUser, addUser, createSession } from '../bff/index';
 
 export const server = {
 	async authorize(authLogin, authPassword) {

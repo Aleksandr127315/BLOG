@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
+import { API_KEY_OPEN_WEATHER } from '../../constants';
 
 const FooterContainer = ({ className }) => {
 	const [city, setSity] = useState('');
@@ -8,7 +9,7 @@ const FooterContainer = ({ className }) => {
 
 	useEffect(() => {
 		fetch(
-			'https://api.openweathermap.org/data/2.5/weather?q=Moscow&units=metric&lang=ru&appid=e1802e00fb58d6feb5545a5c38bb53d3',
+			`https://api.openweathermap.org/data/2.5/weather?q=Moscow&units=metric&lang=ru&appid=${API_KEY_OPEN_WEATHER}`,
 		)
 			.then((res) => res.json())
 			.then(({ name, main, weather }) => {
@@ -22,14 +23,14 @@ const FooterContainer = ({ className }) => {
 		<div className={className}>
 			<div>
 				<div>Блог веб-разработчика</div>
-				<div>merzlikin730@gmail.com</div>
+				<div>merzlikina730@gmail.com</div>
 			</div>
 			<div>
 				<div>
 					{city},{' '}
 					{new Date().toLocaleString('ru', { day: 'numeric', month: 'long' })}
 				</div>
-				{temperature} градусов, {weather}
+				{temperature} °C, {weather}
 			</div>
 		</div>
 	);
