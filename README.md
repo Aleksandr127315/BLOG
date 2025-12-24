@@ -41,7 +41,7 @@
 -сессия текущего пользователя: login / password / role
 
 Схема для редакс стора (на клиенте):
--user: id / login / roleId
+-user: id / login / roleId / session
 -posts: массив post: id / title / imageUrl / content / publishedAt
 -post: id / title /imageUrl / content / publishedAt / comments: массив comment: id / author / content / publishedAt
 -users: массив user: id / login / registeredAt / role
@@ -221,3 +221,37 @@
 ---
 
 урок 3
+
+1.  создаём стор как обычно со store(createStore,milldeware) в файле store.js вс как обычно и так же с помощью combineReduser все reducer собираем все вместе
+2.  создаём всё для редьюсеров для начала с заглушками там должно быть начальное состояние и экшн и с помощью switch case обрабатываем , не забываем сделать индексацию(index.js)
+3.  оборачиваем весь проект в главном компоненте в Provider и передаём в него store
+4.  далее обращаемся в компоненте authorization res(ключ который мы будем гонять)для связи между front и back , сам ключ будем хранить в redux store
+5.  далее работаем с user-reduser задаём initialState с данными которые мы задавали в уроке 4, пока что мы при SET_SESSION возвращаем ...state,session:action.payload
+6.  создаём папку actions
+7.  создаём файл для констант action-type.js(создаём объект ACTION_TYPE с ключами констант SET_SESSION:'SET_SESSION')делаем индексацию для папки actions
+8.  рабоатем с файлом setSession в type передаём нашу константу и в payload передаём session который принимаем в пропсах
+9.  в authorization проверяем если ошибка return(дальше не идём),далее делаем dispatch(setSession(res))
+10. в компоненте server в месте где server нам возвращает объект с return {error: null,res: {id: user.id,login: user.login,roleId: user.role_id,session: sessions.create(user),},};
+11. в корне bff создаём компонент sessions.js в нём создаём объект export const sessions = {
+    list: {},будут храниться данные для пользователя
+    create(user) {
+    const hash = Math.random().toFixed(50);случайные числа(ключи сессии)
+
+        	this.list[hash] = user;добавляем в list
+
+        	return user;запоминаем
+        },
+        remove(hash) {
+        	delete this.list[hash];если нужно разлогинится
+        },
+
+    }; генерация ключа
+
+12. в компоненте server register возвращаем такой же объект как и в authorize
+13. в компоненте authorization мы меняем setSession=>setUser(в action делаем тоже самое setUser и в пропсах и payload user)(в action-type(SET_USER))
+14. в user-reduser мы возвращаем case ACTION_TYPE.SET_USER: {
+    return {
+    ...state,
+    ...action.payload,
+    };
+    }

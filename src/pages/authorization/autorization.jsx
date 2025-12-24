@@ -5,6 +5,8 @@ import { server } from '../../bff';
 import { useState } from 'react';
 import { Input, Button, H2 } from '../../components';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../actions';
 import styled from 'styled-components';
 
 const authFormSchema = yup.object().shape({
@@ -54,11 +56,15 @@ const AuthorizationContainer = ({ className }) => {
 
 	const [serverError, setServerError] = useState(null);
 
+	const dispatch = useDispatch();
+
 	const onSubmit = ({ login, password }) => {
 		server.authorize(login, password).then(({ error, res }) => {
 			if (error) {
 				setServerError(`Ошибка запроса: ${error}`);
+				return;
 			}
+			dispatch(setUser(res));
 		});
 	};
 	const formError = errors?.login?.message || errors?.password?.message;

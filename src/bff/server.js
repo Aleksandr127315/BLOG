@@ -1,4 +1,5 @@
 import { getUser, addUser, createSession } from '../bff/index';
+import { sessions } from './sessions';
 
 export const server = {
 	async authorize(authLogin, authPassword) {
@@ -19,7 +20,12 @@ export const server = {
 
 		return {
 			error: null,
-			res: createSession(user.role_id),
+			res: {
+				id: user.id,
+				login: user.login,
+				roleId: user.role_id,
+				session: sessions.create(user),
+			},
 		};
 	},
 	async register(regLogin, regPassword) {
@@ -36,7 +42,12 @@ export const server = {
 
 		return {
 			error: null,
-			res: createSession(user.role_id),
+			res: {
+				id: user.id,
+				login: user.login,
+				roleId: user.role_id,
+				session: sessions.create(user),
+			},
 		};
 	},
 };
