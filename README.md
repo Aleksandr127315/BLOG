@@ -278,5 +278,36 @@
 1. первое что исправляем выносим Button и в этом компоненте оставляем только кнопку Войти
 2. убираем все лишние отсупы в иконке выйти, для неё сделаем отдельные стили StyledIcon, для всего контеинера RightAligned задаём align-items:center
 3. для login делаем отдельно стилизованный компонент const UserName = styled.div`	font-size: 18px;
-	font-weight: bold;`;
+font-weight: bold;`;
 4. в компоненте Icon мы добавляем пропс {...props} для того чтоыб мы могли спользовать обработчик
+
+---
+
+урок 6
+
+1.  далее при выходе сбрасываем форму авторизации
+2.  хук useForm так же возвращает функцию reset(мы её вызовем чтобы форма сбросилась)
+3.  для этого нам понадобиться хук useStore с методом subsctiption
+4.  создаём новый app-reducer(в нём будет хранится данные чтобы сбросить форму)
+5.  так как наш logout пройдёт по всем reducers то в нашем новом app-reducer он тоже сработает,intialAppState это будет boolean значение(wasLogout:false)
+6.  в проверке когда logout сработал возвращаем return{...state,wasLogout:!state.wasLogout} разварачиваем state и инвертируем его
+7.  в компоненте авторизации мы можем сделать за стейтом задача стоит в том чтобы при изменении waslogout запускалась функция reset делаем это в хуке useEffect
+8.  так же нам понадобится store сделаем это с помощью хука store = useStore
+    useEffect(() => {
+    let currentWasLogout = store.getState().app.wasLogout;
+
+        	return store.subscribe(() => {
+        		let previousWasLogout = currentWasLogout;
+        		currentWasLogout = store.getState().app.wasLogout;
+
+        		if (currentWasLogout !== previousWasLogout) {
+        			reset();
+        		}
+        	});
+        }, [reset, store]);
+
+9.  добавляем в store новый редюсер и индексируем его
+10. далее делаем редирект на главную, делаем это с помощью условного рендеринга и роутера, в нашем случаее нужно получить roleId мы это делали уже с помощью хука useSelector(selectUserRole)
+11. делаем проверку if (roleId !== ROLE.GUEST) {
+    return <Navigate to="/" />;
+    } то есть если roleId не гость при авторизации мы попадаем на главную
