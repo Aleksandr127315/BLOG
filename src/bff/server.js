@@ -1,7 +1,10 @@
-import { getUser, addUser, createSession } from '../bff/index';
+import { getUser, addUser } from '../bff/index';
 import { sessions } from './sessions';
 
 export const server = {
+	async logout(session) {
+		sessions.remove(session);
+	},
 	async authorize(authLogin, authPassword) {
 		const user = await getUser(authLogin);
 
