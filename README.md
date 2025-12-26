@@ -311,3 +311,25 @@ font-weight: bold;`;
 11. делаем проверку if (roleId !== ROLE.GUEST) {
     return <Navigate to="/" />;
     } то есть если roleId не гость при авторизации мы попадаем на главную
+
+---
+
+урок 7
+
+1. делаем страницу регистрации(register)
+2. создаём компонент registration(копируем authorization и чуть подкрючиваем его)
+3. с schema дополянем ещё одно поле passcheck(в нем srting('заполните пароль'),required(),oneOf([yup.ref('password'),null],'повтор пароля не совпадает'))oneOf-поля для проверки совпадения пароля введенного в предыдущем инпуте
+4. в useForm добавится passcheck в defualtValue
+5. меняем поле H2(регистрация) и добавляем новый Input(passcheck) и меняем название кнопки на зарегестрироваться
+6. в маршрутизации вместо заглушки импортируем и используем наш новый компонент Register
+7. в formError добавляем ещё одно поле || error?.passcheck?.message к уже существующим
+8. в обработчике onSubmit меняем server.authrize на server.register
+9. в get-user меняем структуру компонента на такую export const getUser = async (loginToFind) =>
+   fetch(`http://localhost:3030/users?login=${loginToFind}`)
+   .then((loadedUser) => loadedUser.json())
+   .then(([loadedUser]) => loadedUser); важно помнить что сервер возвращает Promise и его нужно обрабатывать
+10. в компоненте server const existedUser = await getUser(regLogin) проверяем его на уже существующий и если такой уже есть выводим ошибку, далее создаем нового const user = await addUser(regLogin,regPassword) это важно для добавления нового пользователя на сервер и уже из новго user берём данные
+11. компонент addUser обрабатываем с помощью json()
+12. далее начинаем смотрет что мы можем вынести
+13. первое что мы выносим это auth-form-error(импортируем его как обычно и подставляем вместо старого кода)
+14. далее создаём кастомный хук для сброса формы ,компонент useResetForm в которую в агрументы мы принимаем функцию reset , так же импортируем useStore и переносим весь useEffect в этот компонент и в наших компонентах вызываем этот кастомный хук с аргументом reset
