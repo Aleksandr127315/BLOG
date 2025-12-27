@@ -1,4 +1,4 @@
-import { generateDate } from '../bff/index';
+import { generateDate } from '../utils';
 
 export const addUser = (login, password) =>
 	fetch('http://localhost:3030/users', {
