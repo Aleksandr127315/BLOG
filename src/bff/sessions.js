@@ -5,14 +5,14 @@ export const sessions = {
 
 		this.list[hash] = user;
 
-		return user;
+		return hash;
 	},
 	remove(hash) {
 		delete this.list[hash];
 	},
-	access(hash, accesRoles) {
+	access(hash, accessRoles) {
 		const user = this.list[hash];
 
-		return !!user && accesRoles.includes(user.roleId);
+		return !!user && accessRoles.includes(user.roleId);
 	},
 };

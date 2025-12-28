@@ -4,9 +4,13 @@ import { TableRow } from '../table-row/table-row';
 import { ROLE } from '../../../../constants';
 import styled from 'styled-components';
 
-const UserRowContainer = ({ className, login, registredAt, roleId: userRoleID }) => {
-	const roles = [];
-
+const UserRowContainer = ({
+	className,
+	login,
+	registeredAt,
+	roleId: userRoleID,
+	roles,
+}) => {
 	const dispatch = useDispatch();
 
 	const onRoleChange = () => {};
@@ -15,11 +19,13 @@ const UserRowContainer = ({ className, login, registredAt, roleId: userRoleID })
 		<div className={className}>
 			<TableRow>
 				<div className="login-column">{login}</div>
-				<div className="registered-column">{registredAt}</div>
+				<div className="registered-column">{registeredAt}</div>
 				<div className="role-column">
 					<select value={userRoleID} onChange={onRoleChange}>
 						{roles.map(({ id: roleId, name: roleName }) => (
-							<option value={roleId}>{roleName}</option>
+							<option key={roleId} value={roleId}>
+								{roleName}
+							</option>
 						))}
 					</select>
 					<Icon

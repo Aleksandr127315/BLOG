@@ -11,27 +11,16 @@ const UsersContainer = ({ className }) => {
 	const requestServer = useServerRequest();
 
 	useEffect(() => {
-		Promise.all([requestServer('fetchRoles'), requestServer('fetchUsers')]).then(
+		Promise.all([requestServer('fetchUsers'), requestServer('fetchRoles')]).then(
 			([usersRes, rolesRes]) => {
-				if (usersRes.error || rolesRes) {
-					setErrorMassage(usersRes.error || rolesRes);
+				if (usersRes.error || rolesRes.error) {
+					setErrorMassage(usersRes.error || rolesRes.error);
 					return;
 				}
-
-				setUsers(usersRes);
-				setRoles(rolesRes);
+				setUsers(usersRes.res);
+				setRoles(rolesRes.res);
 			},
 		);
-
-		requestServer('fetchRoles').then(({ rolesError, res }) => {
-			if (rolesError) {
-				return;
-			}
-
-			setRoles(res);
-		});
-
-		requestServer('fetchUsers');
 	}, [requestServer]);
 
 	return (
@@ -44,11 +33,11 @@ const UsersContainer = ({ className }) => {
 						<div className="registered-column">Дата Регистарции</div>
 						<div className="role-column">Роль</div>
 					</TableRow>
-					{users.map(({ id, login, registredAt, roleId }) => (
+					{users.map(({ id, login, registeredAt, roleId }) => (
 						<UserRow
 							key={id}
 							login={login}
-							registredAt={registredAt}
+							registeredAt={registeredAt}
 							roleId={roleId}
 							roles={roles}
 						/>
