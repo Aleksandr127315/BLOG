@@ -6,6 +6,7 @@ import {
 	register,
 	updateUserRole,
 	removeUser,
+	fetchPost,
 } from './opirations';
 
 export const server = {
@@ -16,4 +17,5 @@ export const server = {
 	fetchRoles,
 	updateUserRole,
 	removeUser,
+	fetchPost,
 };
