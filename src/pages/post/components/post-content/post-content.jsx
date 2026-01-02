@@ -7,7 +7,8 @@ const PostContentContainer = ({
 }) => {
 	return (
 		<div className={className}>
-			<img src={imageUrl} alt={title} />
+			{imageUrl && <img src={imageUrl} alt="" />}
+
 			<H2>{title}</H2>
 			<div className="spesial-panel">
 				<div className="published-at">
