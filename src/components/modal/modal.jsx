@@ -2,27 +2,27 @@ import { Button } from '../button/button';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import {
-	selectModelIsOpen,
-	selectModelOnCancel,
-	selectModelOnConfirm,
-	selectModelText,
+	selectModalIsOpen,
+	selectModalOnCancel,
+	selectModalOnConfirm,
+	selectModalText,
 } from '../../selectors';
 
-const ModelContainer = ({ className }) => {
-	const text = useSelector(selectModelText);
-	const onConfirm = useSelector(selectModelOnConfirm);
-	const onCancel = useSelector(selectModelOnCancel);
-	const isOpen = useSelector(selectModelIsOpen);
+const ModalContainer = ({ className }) => {
+	const text = useSelector(selectModalText);
+	const onConfirm = useSelector(selectModalOnConfirm);
+	const onCancel = useSelector(selectModalOnCancel);
+	const isOpen = useSelector(selectModalIsOpen);
 
-	// if (!isOpen) {
-	// 	return null;
-	// }
+	if (!isOpen) {
+		return null;
+	}
 
 	return (
 		<div className={className}>
 			<div className="overlay"></div>
 			<div className="box">
-				<h3>Удалить комментарий?{text}</h3>
+				<h3>{text}</h3>
 				<div className="buttons">
 					<Button width="120px" onClick={onConfirm}>
 						Да
@@ -36,7 +36,7 @@ const ModelContainer = ({ className }) => {
 	);
 };
 
-export const Model = styled(ModelContainer)`
+export const Modal = styled(ModalContainer)`
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -71,5 +71,6 @@ export const Model = styled(ModelContainer)`
 
 	& .buttons button {
 		margin: 0 5px;
+		cursor: pointer;
 	}
 `;

@@ -5,3 +5,4 @@ export * from './logout';
 export * from './set-post-data';
 export * from './add-comment-async';
 export * from './remove-comment-async';
+export * from './close-modal';
