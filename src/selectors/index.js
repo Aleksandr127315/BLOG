@@ -3,3 +3,8 @@ export * from './select-user-id';
 export * from './select-user-login';
 export * from './select-user-session';
 export * from './select-post';
+export * from './select-post';
+export * from './select-model-on-cancel';
+export * from './select-model-on-confirm';
+export * from './select-model-text';
+export * from './select-model-is-open';
