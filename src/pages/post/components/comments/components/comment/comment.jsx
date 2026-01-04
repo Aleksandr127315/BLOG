@@ -3,7 +3,7 @@ import { Icon } from '../../../../../../components';
 import { CLOSE_MODAL, removeCommentAsync } from '../../../../../../actions';
 import { useServerRequest } from '../../../../../../hooks';
 import styled from 'styled-components';
-import { openModal } from '../../../../../../actions/open-modal';
+import { openModal } from '../../../../../../actions';
 
 const CommentContainer = ({ className, postId, id, author, publishedAt, content }) => {
 	const dispatch = useDispatch();

@@ -1,25 +1,38 @@
 import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Input, Icon } from '../../../../components';
 import { SpecialPanel } from '../comments/components/special-panel/special-panel';
+import { useServerRequest } from '../../../../hooks';
+import { savePostAsync } from '../../../../actions';
 import { sanitizeContent } from './utils';
 import styled from 'styled-components';
 
 const PostFormContainer = ({
 	className,
-	post: { title, imageUrl, content, publishedAt },
+	post: { id, title, imageUrl, content, publishedAt },
 }) => {
 	const imageRef = useRef(null);
 	const titleRef = useRef(null);
 	const contentRef = useRef(null);
 
-	const onSave = () => {
-		const newImageUrl = imageRef.current.value;
-		const newTitleeUrl = titleRef.current.value;
-		const newContentUrl = sanitizeContent(contentRef.current.innerHTML);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const requestServer = useServerRequest();
 
-		console.log(newImageUrl);
-		console.log(newTitleeUrl);
-		console.log(newContentUrl);
+	const onSave = () => {
+		const newImage = imageRef.current.value;
+		const newTitle = titleRef.current.value;
+		const newContent = sanitizeContent(contentRef.current.innerHTML);
+
+		dispatch(
+			savePostAsync(requestServer, {
+				id,
+				imageUrl: newImage,
+				title: newTitle,
+				content: newContent,
+			}),
+		).then(() => navigate(`/post/${id}`));
 	};
 
 	return (
@@ -27,6 +40,7 @@ const PostFormContainer = ({
 			<Input ref={imageRef} defaultValue={imageUrl} placeholder="Изображение..." />
 			<Input ref={titleRef} defaultValue={title} placeholder="Заголовок..." />
 			<SpecialPanel
+				id={id}
 				publishedAt={publishedAt}
 				margin="20px 0"
 				editButton={
