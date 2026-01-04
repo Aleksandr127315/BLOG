@@ -10,6 +10,7 @@ import styled from 'styled-components';
 const PostContainer = ({ className }) => {
 	const dispatch = useDispatch();
 	const params = useParams();
+	const isCreating = useMatch('/post');
 	const isEditing = useMatch('/post/:id/edit');
 	const requestServer = useServerRequest();
 	const post = useSelector(selectPost);
@@ -19,12 +20,15 @@ const PostContainer = ({ className }) => {
 	}, [dispatch]);
 
 	useEffect(() => {
+		if (isCreating) {
+			return;
+		}
 		dispatch(loadPostAsync(requestServer, params.id));
-	}, [requestServer, dispatch, params.id]);
+	}, [requestServer, dispatch, params.id, isCreating]);
 
 	return (
 		<div className={className}>
-			{isEditing ? (
+			{isEditing || isCreating ? (
 				<PostForm post={post} />
 			) : (
 				<>
