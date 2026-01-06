@@ -54,13 +54,13 @@ export const PostCard = styled(PostCardContainer)`
 		width: 100%;
 	}
 
-	& h4 {
-		margin: 0;
-	}
-
 	& .post-card-footer {
 		padding: 5px;
 		border-top: 1px solid #000;
+	}
+
+	& h4 {
+		margin: 0;
 	}
 
 	& .post-card-info {
