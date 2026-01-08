@@ -168,6 +168,62 @@
       "published_at": "2042-11-24 08:47",
       "content": "красивый текст",
       "id": "5"
+    },
+    {
+      "author_id": "FVSGo2e",
+      "post_id": "002",
+      "published_at": "2058-12-15 19:40",
+      "content": "здорово",
+      "id": "kiSG17_"
+    },
+    {
+      "author_id": "FVSGo2e",
+      "post_id": "002",
+      "published_at": "2054-03-23 19:02",
+      "content": "красиво",
+      "id": "lJNEB0A"
+    },
+    {
+      "author_id": "FVSGo2e",
+      "post_id": "003",
+      "published_at": "2055-08-27 20:26",
+      "content": "умопомрачительно",
+      "id": "0Jn_7A4"
+    },
+    {
+      "author_id": "FVSGo2e",
+      "post_id": "004",
+      "published_at": "2051-11-25 05:14",
+      "content": "шедеврально",
+      "id": "AOFVHVp"
+    },
+    {
+      "author_id": "FVSGo2e",
+      "post_id": "004",
+      "published_at": "2042-11-30 07:21",
+      "content": "браво",
+      "id": "R5hN-0Q"
+    },
+    {
+      "author_id": "FVSGo2e",
+      "post_id": "006",
+      "published_at": "2041-02-08 21:59",
+      "content": "восторг",
+      "id": "4xvsYn2"
+    },
+    {
+      "author_id": "FVSGo2e",
+      "post_id": "q-gOq-M",
+      "published_at": "2056-08-29 09:40",
+      "content": "стоит задуматься",
+      "id": "Yw2XAQU"
+    },
+    {
+      "author_id": "kC_qZtA",
+      "post_id": "003",
+      "published_at": "2038-09-09 11:53",
+      "content": "заманчиво",
+      "id": "OEkzMim"
     }
   ],
   "sessions": [
@@ -181,6 +237,17 @@
         "registeredAt": "2025-10-10",
         "roleId": 0
       }
+    },
+    {
+      "hash": "0.85292108187471138425195249510579742491245269775391",
+      "user": {
+        "id": "FVSGo2e",
+        "login": "maxim",
+        "password": "qazwsx#%",
+        "registeredAt": "2040-03-12 12:39",
+        "roleId": 1
+      },
+      "id": "bp1RuOC"
     }
   ]
 }
