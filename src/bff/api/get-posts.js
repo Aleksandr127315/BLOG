@@ -8,6 +8,6 @@ export const getPosts = (searchPhrase, page, limit) =>
 			Promise.all([loadedposts.json(), loadedposts.headers.get('Link')]),
 		)
 		.then(([loadedposts, links]) => ({
-			posts: loadedposts && loadedposts.map(transformPost),
+			posts: loadedposts.map(transformPost),
 			links,
 		}));
