@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { H2, Icon } from '../../../../components';
 import { SpecialPanel } from '../comments/components/special-panel/special-panel';
 import styled from 'styled-components';
+import { PROP_TYPE } from '../../../../constants';
 
 const PostContentContainer = ({
 	className,
@@ -20,7 +21,7 @@ const PostContentContainer = ({
 					<Icon
 						id="fa-pencil-square-o"
 						size="21px"
-						margin="2px 10px 0 0"
+						margin="1px 10px 0 0"
 						onClick={() => navigate(`/post/${id}/edit`)}
 					/>
 				}
@@ -41,3 +42,7 @@ export const PostContent = styled(PostContentContainer)`
 		white-space: pre-line;
 	}
 `;
+
+PostContent.propTypes = {
+	post: PROP_TYPE.POST.isRequired,
+};
