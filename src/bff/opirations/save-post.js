@@ -13,12 +13,9 @@ export const savePost = async (hash, newPostData) => {
 			res: null,
 		};
 	}
-
-	const savedPost =
-		newPostData.id === ''
-			? await addPost(newPostData)
-			: await updatePost(newPostData);
-
+	const savedPost = newPostData.id
+		? await updatePost(newPostData)
+		: await addPost(newPostData);
 	return {
 		error: null,
 		res: savedPost,

@@ -1,31 +1,22 @@
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { CLOSE_MODAL, openModal, removePostAsync } from '../../../../../../actions';
-import { useServerRequest } from '../../../../../../hooks';
+import { openModal } from '../../../../../../reducers/app-reducer';
 import { checkAccess } from '../../../../../../utils';
 import { ROLE } from '../../../../../../constants';
 import { Icon } from '../../../../../../components';
-import styled from 'styled-components';
 import { selectUserRole } from '../../../../../../selectors';
+import styled from 'styled-components';
 
-const SpecialPanelContainer = ({ className, id, publishedAt, editButton }) => {
+const SpecialPanelContainer = ({ className, id: postId, publishedAt, editButton }) => {
 	const dispatch = useDispatch();
 	const userRole = useSelector(selectUserRole);
-	const requestServer = useServerRequest();
-	const navigate = useNavigate();
 
-	const onPostRemove = (id) => {
+	const onPostRemove = () => {
 		dispatch(
 			openModal({
-				text: 'Удалить статью?',
-				onConfirm: () => {
-					dispatch(removePostAsync(requestServer, id)).then(() => {
-						navigate('/');
-					});
-					dispatch(CLOSE_MODAL);
-				},
-				onCancel: () => dispatch(CLOSE_MODAL),
+				text: 'Удалить пост?',
+				confirmType: 'DELETE_POST',
+				payload: { postId },
 			}),
 		);
 	};
@@ -53,7 +44,7 @@ const SpecialPanelContainer = ({ className, id, publishedAt, editButton }) => {
 							id="fa-trash-o"
 							size="21px"
 							margin="0 0 0 7px"
-							onClick={() => onPostRemove(id)}
+							onClick={onPostRemove}
 						/>
 					)}
 				</div>

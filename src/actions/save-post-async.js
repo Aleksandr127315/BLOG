@@ -1,8 +1,9 @@
-import { setPostData } from './set-post-data';
+import { setPost } from '../reducers/post-reducer';
 
-export const savePostAsync = (requestServer, newPostData) => (dispatch) =>
-	requestServer('savePost', newPostData).then((updatedPost) => {
-		dispatch(setPostData(updatedPost.res));
+export const savePostAsync = (requestServer, postData) => async (dispatch) => {
+	const result = await requestServer('savePost', postData);
 
-		return updatedPost.res;
-	});
+	dispatch(setPost(result.res));
+
+	return result.res;
+};

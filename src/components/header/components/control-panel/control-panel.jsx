@@ -1,13 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Icon, Button } from '../../../../components';
-import {
-	selectUserRole,
-	selectUserLogin,
-	selectUserSession,
-} from '../../../../selectors';
+import { selectUserRole, selectUserLogin } from '../../../../selectors';
 import { ROLE } from '../../../../constants';
-import { logout } from '../../../../actions/logout';
+import { logout } from '../../../../reducers/user-reducer';
 import { checkAccess } from '../../../../utils';
 import styled from 'styled-components';
 
@@ -25,12 +21,12 @@ const UserName = styled.div`
 const ControlPanelContainer = ({ className }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
 	const roleId = useSelector(selectUserRole);
 	const login = useSelector(selectUserLogin);
-	const session = useSelector(selectUserSession);
 
 	const onLogout = () => {
-		dispatch(logout(session));
+		dispatch(logout());
 		sessionStorage.removeItem('userData');
 	};
 
@@ -46,7 +42,6 @@ const ControlPanelContainer = ({ className }) => {
 				) : (
 					<>
 						<UserName>{login}</UserName>
-
 						<Icon id="fa-sign-out" margin="0 0 0 10px" onClick={onLogout} />
 					</>
 				)}

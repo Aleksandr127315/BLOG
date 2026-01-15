@@ -1,14 +1,20 @@
 import { useNavigate } from 'react-router-dom';
 import { H2, Icon } from '../../../../components';
 import { SpecialPanel } from '../comments/components/special-panel/special-panel';
-import styled from 'styled-components';
 import { PROP_TYPE } from '../../../../constants';
+import { useEffect } from 'react';
+import styled from 'styled-components';
 
 const PostContentContainer = ({
 	className,
 	post: { id, title, imageUrl, content, publishedAt },
 }) => {
 	const navigate = useNavigate();
+	useEffect(() => {
+		if (!id) {
+			navigate('/');
+		}
+	}, [id, navigate]);
 	return (
 		<div className={className}>
 			<img src={imageUrl} alt={title} />

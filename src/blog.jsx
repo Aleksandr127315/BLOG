@@ -2,8 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import { Authorization, Post, Registration, Users, Main } from './pages';
 import { Error, Header, Footer, Modal } from './components';
-import { ERROR } from './constants';
-import { setUser } from './actions';
+import { ERROR, ROLE } from './constants';
+import { setUser } from './reducers/user-reducer';
 import { useLayoutEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -24,11 +24,10 @@ const Page = styled.div`
 
 export const Blog = () => {
 	const dispatch = useDispatch();
+
 	useLayoutEffect(() => {
 		const currentUserDataJSON = sessionStorage.getItem('userData');
-		if (!currentUserDataJSON) {
-			return;
-		}
+		if (!currentUserDataJSON) return;
 
 		const currentUserData = JSON.parse(currentUserDataJSON);
 
@@ -39,6 +38,7 @@ export const Blog = () => {
 			}),
 		);
 	}, [dispatch]);
+
 	return (
 		<AppColumn>
 			<Header />
