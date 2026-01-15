@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { Input, Button, H2, AuthFormError } from '../../components';
 import { Link, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../../actions';
+import { setUser } from '../../reducers/user-reducer';
 import { selectUserRole } from '../../selectors';
 import { ROLE } from '../../constants';
 import { useResetForm } from '../../hooks';

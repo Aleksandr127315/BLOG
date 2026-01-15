@@ -1,22 +1,25 @@
 import { Button } from '../button/button';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectModalIsOpen, selectModalText } from '../../selectors';
+import { closeModal, confirmModal } from '../../reducers/app-reducer.js';
 import styled from 'styled-components';
-import {
-	selectModalIsOpen,
-	selectModalOnCancel,
-	selectModalOnConfirm,
-	selectModalText,
-} from '../../selectors';
+import { useServerRequest } from '../../hooks';
 
 const ModalContainer = ({ className }) => {
 	const text = useSelector(selectModalText);
-	const onConfirm = useSelector(selectModalOnConfirm);
-	const onCancel = useSelector(selectModalOnCancel);
 	const isOpen = useSelector(selectModalIsOpen);
+	const dispatch = useDispatch();
+	const requestServer = useServerRequest();
 
 	if (!isOpen) {
 		return null;
 	}
+	const handleConfirm = () => {
+		dispatch(confirmModal(requestServer));
+	};
+	const handleCancel = () => {
+		dispatch(closeModal());
+	};
 
 	return (
 		<div className={className}>
@@ -24,10 +27,10 @@ const ModalContainer = ({ className }) => {
 			<div className="box">
 				<h3>{text}</h3>
 				<div className="buttons">
-					<Button width="120px" onClick={onConfirm}>
+					<Button width="120px" onClick={handleConfirm}>
 						Да
 					</Button>
-					<Button width="120px" onClick={onCancel}>
+					<Button width="120px" onClick={handleCancel}>
 						Отмена
 					</Button>
 				</div>

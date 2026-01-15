@@ -1,24 +1,29 @@
-import { ACTION_TYPE } from '../actions';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialPostState = {
-	id: '',
-	title: '',
-	imageUrl: '',
-	content: '',
-	publishedAt: '',
+	id: null,
+	title: null,
+	imageUrl: null,
+	content: null,
+	publishedAt: null,
 	comments: [],
 };
 
-export const postReducer = (state = initialPostState, action) => {
-	switch (action.type) {
-		case ACTION_TYPE.SET_POST_DATA:
+const postSlice = createSlice({
+	name: 'post',
+	initialState: initialPostState,
+	reducers: {
+		setPost(state, action) {
 			return {
 				...state,
 				...action.payload,
+				comments: action.payload.comments ?? state.comments ?? [],
 			};
-		case ACTION_TYPE.RESET_POST_DATA:
+		},
+		resetPostData() {
 			return initialPostState;
-		default:
-			return state;
-	}
-};
+		},
+	},
+});
+export const { setPost, resetPostData } = postSlice.actions;
+export default postSlice.reducer;

@@ -1,34 +1,65 @@
-import { ACTION_TYPE } from '../actions';
+import { createSlice } from '@reduxjs/toolkit';
+import { removePostAsync, removeCommentAsync } from '../actions';
 
-const initialAppState = {
+const initialState = {
 	wasLogout: false,
 	modal: {
 		isOpen: false,
 		text: '',
-		onConfirm: () => {},
-		onCancel: () => {},
+		confirmType: null,
+		payload: null,
 	},
 };
 
-export const appReducer = (state = initialAppState, action) => {
-	switch (action.type) {
-		case ACTION_TYPE.LOGOUT:
-			return {
-				...state,
-				wasLogout: !state.wasLogout,
-			};
-		case ACTION_TYPE.OPEN_MODAL:
-			return {
-				...state,
-				modal: {
-					...state.modal,
-					...action.payload,
-					isOpen: true,
-				},
-			};
-		case ACTION_TYPE.CLOSE_MODAL:
-			return initialAppState;
-		default:
-			return state;
+const appSlice = createSlice({
+	name: 'app',
+	initialState,
+	reducers: {
+		logoutOccurred(state) {
+			state.wasLogout = !state.wasLogout;
+		},
+		openModal(state, action) {
+			state.modal.isOpen = true;
+			state.modal.text = action.payload.text;
+			state.modal.confirmType = action.payload.confirmType;
+			state.modal.payload = action.payload.payload || null;
+		},
+		closeModal(state) {
+			state.modal = initialState.modal;
+		},
+	},
+});
+
+export const confirmModal = (requestServer) => async (dispatch, getState) => {
+	const { confirmType, payload } = getState().app.modal;
+
+	if (!confirmType) {
+		dispatch(closeModal());
+		return;
+	}
+
+	try {
+		switch (confirmType) {
+			case 'DELETE_POST': {
+				const { postId } = payload;
+				await dispatch(removePostAsync(requestServer, postId));
+				break;
+			}
+			case 'DELETE_COMMENT': {
+				const { postId, commentId } = payload;
+
+				await dispatch(removeCommentAsync(requestServer, postId, commentId));
+				break;
+			}
+			default:
+				break;
+		}
+	} catch (err) {
+		console.error('Ошибка confirmModal:', err);
+	} finally {
+		dispatch(closeModal());
 	}
 };
+
+export const { logoutOccurred, openModal, closeModal } = appSlice.actions;
+export default appSlice.reducer;

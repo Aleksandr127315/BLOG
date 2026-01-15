@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Comments, PostContent, PostForm } from './components';
 import { Error, PrivateContent } from '../../components';
 import { useServerRequest } from '../../hooks';
-import { loadPostAsync, RESET_POST_DATA } from '../../actions';
+import { loadPostAsync } from '../../actions';
+import { resetPostData } from '../../reducers/post-reducer';
 import { selectPost } from '../../selectors';
 import { ROLE } from '../../constants';
 import styled from 'styled-components';
@@ -20,7 +21,7 @@ const PostContainer = ({ className }) => {
 	const post = useSelector(selectPost);
 
 	useLayoutEffect(() => {
-		dispatch(RESET_POST_DATA);
+		dispatch(resetPostData());
 	}, [dispatch, isCreating]);
 
 	useEffect(() => {

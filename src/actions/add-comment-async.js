@@ -1,7 +1,7 @@
-import { setPostData } from './set-post-data';
+import { setPost } from '../reducers/post-reducer';
 
 export const addCommentAsync = (requestServer, postId, userId, content) => (dispatch) => {
 	requestServer('addPostComment', postId, userId, content).then((postData) => {
-		dispatch(setPostData(postData.res));
+		dispatch(setPost(postData.res));
 	});
 };

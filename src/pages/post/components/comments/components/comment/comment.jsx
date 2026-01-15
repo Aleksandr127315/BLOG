@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Icon } from '../../../../../../components';
-import { CLOSE_MODAL, removeCommentAsync } from '../../../../../../actions';
-import { useServerRequest } from '../../../../../../hooks';
-import { openModal } from '../../../../../../actions';
+import { openModal } from '../../../../../../reducers/app-reducer';
 import { selectUserRole } from '../../../../../../selectors';
 import { checkAccess } from '../../../../../../utils';
 import { ROLE } from '../../../../../../constants';
@@ -11,18 +9,14 @@ import styled from 'styled-components';
 
 const CommentContainer = ({ className, postId, id, author, publishedAt, content }) => {
 	const dispatch = useDispatch();
-	const requestServer = useServerRequest();
 	const userRole = useSelector(selectUserRole);
 
 	const onCommentRemove = (id) => {
 		dispatch(
 			openModal({
 				text: 'Удалить комментарий?',
-				onConfirm: () => {
-					dispatch(removeCommentAsync(requestServer, postId, id));
-					dispatch(CLOSE_MODAL);
-				},
-				onCancel: () => dispatch(CLOSE_MODAL),
+				confirmType: 'DELETE_COMMENT',
+				payload: { postId, commentId: id },
 			}),
 		);
 	};
